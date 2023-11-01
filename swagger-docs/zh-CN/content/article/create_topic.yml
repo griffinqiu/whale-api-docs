@@ -1,0 +1,196 @@
+swagger: "2.0"
+info:
+  description: "创建讨论"
+  version: "v1"
+  title: "创建讨论"
+paths:
+  /v1/social/topic:
+    post:
+      access:
+      parameters:
+        - name: "kind"
+          type: "integer"
+          description: "讨论类型，可选：<br/> `1` - (长文) <br/> `2` - 短文"
+          required: true
+        - name: "body"
+          type: "string"
+          description: "内容正文"
+          required: true
+        - name: "title"
+          type: "string"
+          description: "内容标题，讨论类型是长文的时候需要传入"
+          required: false
+        - name: "attachment_ids"
+          type: "int[]"
+          description: "上传图片的 id, 再调用图片上传接口成功后，会返回图片的 id"
+          required: false
+        - name: "hash_tags"
+          type: "string[]"
+          description: "话题标签列表"
+          required: false
+        - name: "draft"
+          type: "bool"
+          description: "是否是草稿，草稿内容会保存但不会发布"
+          required: false
+
+      responses:
+        "200":
+          description: "返回成功"
+          schema:
+            $ref: "#/definitions/article"
+        "500":
+          description: "内部错误"
+        "400":
+          description: "参数错误"
+
+      response_body: { "code": 0, "data": { "article": {} } }
+
+definitions:
+  article:
+    type: "object"
+    required: ["id", "type", "kind"]
+    properties:
+      id:
+        type: "interger"
+        description: "文章 ID"
+      type:
+        type: "integer"
+        description: "文章类型，可选<br/> `1` - 新闻 <br/> `2` - UGC"
+      kind:
+        type: "integer"
+        description: "对应文章类型是 UGC: <br/> `1` - 长文 <br/> `2` - 短文 <br/> 对应新闻：<br/> `1` - 资讯 <br/> `2` - 快讯"
+      title:
+        type: "string"
+        description: "文章标题"
+      description:
+        type: "string"
+        description: "文章是短文时对应短文内容，是长文时对应摘要内容"
+      body:
+        type: "string"
+        description: "文章正文"
+      counter_ids:
+        type: "string[]"
+        description: '文章关联的股票列表，例如：`["ST/US/BABA", "ST/HK/700"]`'
+      published_at:
+        type: "integer"
+        description: "文章发布时间戳，格式：`1697193075`"
+      choice:
+        type: "boolean"
+        description: "文章是否是精选内容"
+      important:
+        type: "boolean"
+        description: "文章是否是重要内容"
+      pin:
+        type: "boolean"
+        description: "文章是否是置顶内容"
+      comments_count:
+        type: "integer"
+        description: "文章的评论数"
+      likes_count:
+        type: "integer"
+        description: "文章的点赞数"
+      bookmarks_count:
+        type: "integer"
+        description: "文章的收藏数"
+      author:
+        type: "[Profile](/api/content/profile/get_profile#schemaprofile)"
+        description: "作者信息"
+      scopes:
+        type: "[ArticleScopes](#articlescopes)"
+        description: "当前用户和该文章的互动信息"
+      last_edited_at:
+        type: "integer"
+        description: "文章最后更新时间戳，格式：`1697193075`"
+      choice_title:
+        type: "string"
+        description: "文章精选分类标题"
+      images:
+        type: "[Image](#image)[]"
+        description: "文章图片列表"
+      containers:
+        type: "[Container](#container)[]"
+        description: "文章关联话题列表"
+
+  articleScopes:
+    type: "object"
+    required: ["liked", "bookmarked", "author"]
+    properties:
+      liked:
+        type: boolean
+        description: "当前用户是否已经点赞"
+      bookmarked:
+        type: boolean
+        description: "当前用户是否已经收藏"
+      author:
+        type: boolean
+        description: "当前用户是否是作者"
+
+  image:
+    type: "object"
+    required: ["kind", "url"]
+    properties:
+      kind:
+        type: "integer"
+        description: "类型，可选：<br/> `0` - 正常图片 <br/> `1` - 封面图 <br/> `2` - 视频封面图"
+      url:
+        type: "string"
+        description: "图片地址"
+      link:
+        type: "string"
+        description: "点击图片跳转链接"
+      image_style:
+        type: "[image_style](#image_style)"
+        description: "图片样式"
+      meta:
+        type: "[meta](#meta)"
+        description: "图片基本信息"
+
+  image_style:
+    type: "object"
+    required: ["s_128", "s_320", "s_1024", "original"]
+    properties:
+      s_128:
+        type: "string"
+        description: "128 尺寸图片地址"
+      s_320:
+        type: "string"
+        description: "320 尺寸图片地址"
+      s_1024:
+        type: "string"
+        description: "1024 尺寸图片地址"
+      original:
+        type: "string"
+        description: "原图地址"
+
+  meta:
+    type: "object"
+    properties:
+      width:
+        type: "string"
+        description: "图片宽"
+      height:
+        type: "string"
+        description: "图片高"
+      file_size:
+        type: "string"
+        description: "图片大小"
+
+  container:
+    type: "object"
+    required: ["id", "title"]
+    properties:
+      id:
+        type: "integer"
+        description: "话题 ID"
+      title:
+        type: "string"
+        description: "话题名称"
+      description:
+        type: "string"
+        description: "话题描述"
+      icon:
+        type: "string"
+        description: 话题 icon 图片地址
+      cover:
+        type: "string"
+        description: "话题封面图片地址"
