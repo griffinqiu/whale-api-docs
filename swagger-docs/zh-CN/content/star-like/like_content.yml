@@ -39,4 +39,3 @@ definitions:
       is_like:
         type: "bool"
         description: "当前内容是否已点赞"
-      profile:
