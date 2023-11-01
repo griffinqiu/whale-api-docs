@@ -4,18 +4,16 @@ info:
   version: "v1"
   title: "点赞/取消点赞"
 paths:
-  /v1/content/toggle_like:
+  /v1/content/likes:
     post:
       access:
       parameters:
         - name: "target_type"
           type: "string"
-          in: body
           description: "内容类型，可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
           required: true
         - name: "target_id"
           type: "integer"
-          in: body
           description: "内容 ID，例如 `123`"
           required: true
       responses:

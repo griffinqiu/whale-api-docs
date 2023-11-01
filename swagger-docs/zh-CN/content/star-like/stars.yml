@@ -4,23 +4,20 @@ info:
   version: "v1"
   title: "收藏/取消收藏"
 paths:
-  /v1/content/toggle_star:
+  /v1/content/stars:
     post:
       access:
       parameters:
         - name: "target_type"
           type: "string"
-          in: body
           description: "内容类别，可选：Topic(讨论)、Post(资讯)，例如 `Topic`"
           required: true
         - name: "target_id"
           type: "integer"
-          in: body
           description: "内容 ID，例如：`123`"
           required: true
         - name: "cancel"
           type: "bool"
-          in: body
           description: "是否取消收藏，true(取消收藏)、false(收藏)，例如：`true`"
           required: true
       responses:
