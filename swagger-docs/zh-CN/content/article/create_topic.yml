@@ -48,7 +48,7 @@ paths:
 definitions:
   article:
     type: "object"
-    required: ["id", "type", "kind"]
+    required: ["id", "type", "kind", "published_at", "author"]
     properties:
       id:
         type: "interger"
@@ -59,6 +59,12 @@ definitions:
       kind:
         type: "integer"
         description: "对应文章类型是 UGC: <br/> `1` - 长文 <br/> `2` - 短文 <br/> 对应新闻：<br/> `1` - 资讯 <br/> `2` - 快讯"
+      published_at:
+        type: "integer"
+        description: "文章发布时间戳，格式：`1697193075`"
+      author:
+        type: "[Profile](/api/content/profile/get_profile#schemaprofile)"
+        description: "作者信息"
       title:
         type: "string"
         description: "文章标题"
@@ -71,9 +77,6 @@ definitions:
       counter_ids:
         type: "string[]"
         description: '文章关联的股票列表，例如：`["ST/US/BABA", "ST/HK/700"]`'
-      published_at:
-        type: "integer"
-        description: "文章发布时间戳，格式：`1697193075`"
       choice:
         type: "boolean"
         description: "文章是否是精选内容"
@@ -92,9 +95,6 @@ definitions:
       bookmarks_count:
         type: "integer"
         description: "文章的收藏数"
-      author:
-        type: "[Profile](/api/content/profile/get_profile#schemaprofile)"
-        description: "作者信息"
       scopes:
         type: "[ArticleScopes](#articlescopes)"
         description: "当前用户和该文章的互动信息"
