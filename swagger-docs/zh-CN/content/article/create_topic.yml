@@ -58,8 +58,8 @@ paths:
                   "type": 2,
                   "published_at": 1697193075,
                   "title": "标题",
-                  "description": "摘要",
-                  "body": "正文",
+                  "description": "<p>摘要</p>",
+                  "body": "<p>正文</p>",
                   "choice": true,
                   "important": false,
                   "pin": false,
@@ -158,19 +158,16 @@ definitions:
         description: "文章标题"
       description:
         type: "string"
-        description: "文章是短文时对应短文内容，是长文时对应摘要内容"
+        description: "文章是短文时对应短文内容，是长文时对应摘要内容，（HTML 格式）"
       body:
         type: "string"
-        description: "文章正文"
+        description: "文章正文（HTML 格式）"
       counter_ids:
         type: "string[]"
         description: '文章关联的股票列表，例如：`["ST/US/BABA", "ST/HK/700"]`'
       choice:
         type: "boolean"
         description: "文章是否是精选内容"
-      important:
-        type: "boolean"
-        description: "文章是否是重要内容"
       pin:
         type: "boolean"
         description: "文章是否是置顶内容"
@@ -198,6 +195,26 @@ definitions:
       containers:
         type: "[Container](#container)[]"
         description: "文章关联话题列表"
+      important:
+        type: boolean
+        description: "新闻类型下是否是重要新闻"
+      source:
+        type: "[Source](#source)"
+        description: "新闻来源信息"
+
+  source:
+    type: "object"
+    required: ["key", "name", "logo"]
+    properties:
+      key:
+        type: "integer"
+        description: "新闻来源 ID"
+      name:
+        type: "string"
+        description: "新闻来源名称"
+      logo:
+        type: "string"
+        description: "新闻来源 logo 地址"
 
   articleScopes:
     type: "object"

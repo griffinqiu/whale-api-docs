@@ -1,51 +1,31 @@
 swagger: "2.0"
 info:
-  title: "更新讨论"
-  description: "更新讨论"
+  title: "讨论详情"
+  description: "讨论详情"
   version: "v1"
 paths:
-  /v1/content/topics:
-    put:
-      access:
+  /v1/content/topics/:id:
+    get:
       parameters:
         - name: "id"
           type: "integer"
+          in: path
           description: "讨论 ID"
           required: true
-        - name: "body"
-          type: "string"
-          description: "内容正文，HTML 格式"
-          required: true
-        - name: "title"
-          type: "string"
-          description: "内容标题，讨论类型是长文的时候需要传入"
-          required: false
-        - name: "attachment_ids"
-          type: "int[]"
-          description: "上传图片的 id, 再调用图片上传接口成功后，会返回图片的 id"
-          required: false
-        - name: "hash_tags"
-          type: "string[]"
-          description: "话题标签列表"
-          required: false
-        - name: "draft"
-          type: "bool"
-          description: "是否是草稿，草稿内容会保存但不会发布"
-          required: false
 
       responses:
         "200":
           description: "返回成功"
           schema:
-            $ref: "#/definitions/article_resp"
+            $ref: "#/definitions/topic_detail_resp"
         "404":
-          description: "内容不存在"
+          description: "讨论不存在"
         "500":
           description: "内部错误"
 
       request_body:
         type: "json"
-        value: { "id": 1, "body": "正文内容" }
+        value: /v1/content/topics/1
       response_body:
         {
           "code": 0,
@@ -61,7 +41,6 @@ paths:
                   "description": "<p>摘要</p>",
                   "body": "<p>正文</p>",
                   "choice": true,
-                  "important": false,
                   "pin": false,
                   "comments_count": 1,
                   "likes_count": 2,
@@ -79,9 +58,9 @@ paths:
                         "link": "",
                         "image_style":
                           {
-                            "s_128": "https://xxx.png?size=128",
-                            "s_320": "https://xxx.png?size=256",
-                            "s_1024": "https://xxx.png?size=512",
+                            "s_128": "https://xxx.png?x-oss-process=style/128",
+                            "s_320": "https://xxx.png?x-oss-process=style/320",
+                            "s_1024": "https://xxx.png?x-oss-process=style/1024",
                             "original": "https://xxx.png",
                           },
                         "meta":
@@ -128,7 +107,7 @@ paths:
         }
 
 definitions:
-  article_resp:
+  topic_detail_resp:
     properties:
       article:
         type: "object"
