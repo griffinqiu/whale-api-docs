@@ -4,7 +4,7 @@ info:
   version: "v1"
   title: "创建讨论"
 paths:
-  /v1/social/topic:
+  /v1/content/topics:
     post:
       access:
       parameters:
@@ -37,15 +37,103 @@ paths:
         "200":
           description: "返回成功"
           schema:
-            $ref: "#/definitions/article"
+            $ref: "#/definitions/article_resp"
         "500":
           description: "内部错误"
         "400":
           description: "参数错误"
 
-      response_body: { "code": 0, "data": { "article": {} } }
+      request_body:
+        type: "json"
+        value: { "kind": 2, "body": "正文内容" }
+      response_body:
+        {
+          "code": 0,
+          "data":
+            {
+              "article":
+                {
+                  "id": 1,
+                  "kind": 1,
+                  "type": 2,
+                  "published_at": 1697193075,
+                  "title": "标题",
+                  "description": "摘要",
+                  "body": "正文",
+                  "choice": true,
+                  "important": false,
+                  "pin": false,
+                  "comments_count": 1,
+                  "likes_count": 2,
+                  "bookmarks_count": 3,
+                  "counter_ids": ["BABA.US", "700.HK"],
+                  "scopes":
+                    { "liked": true, "bookmarked": false, "author": false },
+                  "last_edited_at": 1697193075,
+                  "choice_title": "精选",
+                  "images":
+                    [
+                      {
+                        "kind": 0,
+                        "url": "https://xxx.png",
+                        "link": "",
+                        "image_style":
+                          {
+                            "s_128": "https://xxx.png?size=128",
+                            "s_320": "https://xxx.png?size=256",
+                            "s_1024": "https://xxx.png?size=512",
+                            "original": "https://xxx.png",
+                          },
+                        "meta":
+                          {
+                            "width": "128",
+                            "height": "128",
+                            "file_size": "1280",
+                          },
+                      },
+                    ],
+                  "containers":
+                    [
+                      {
+                        "id": 1,
+                        "title": "话题",
+                        "description": "话题描述",
+                        "icon": "https://xxx.png",
+                        "cover": "https://xxx.png",
+                      },
+                    ],
+                  "author":
+                    {
+                      "id": 1,
+                      "member_id": 1,
+                      "avatar": "https://xxxx.png",
+                      "nickname": "nickname",
+                      "description": "description",
+                      "following_count": 10,
+                      "followers_count": 10,
+                      "activities_count": 10,
+                      "bookdmarks_count": 11,
+                      "cover": "https://xxx.png",
+                      "scopes":
+                        {
+                          "followed": true,
+                          "following": true,
+                          "self": false,
+                          "blocked": false,
+                          "special_following": false,
+                        },
+                    },
+                },
+            },
+        }
 
 definitions:
+  article_resp:
+    properties:
+      article:
+        type: "object"
+        description: "[Article](#/definitions/article)"
+
   article:
     type: "object"
     required: ["id", "type", "kind", "published_at", "author"]
