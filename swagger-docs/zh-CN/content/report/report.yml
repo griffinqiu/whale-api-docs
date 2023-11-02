@@ -1,0 +1,46 @@
+swagger: "2.0"
+info:
+  description: "内容举报"
+  version: "v1"
+  title: "内容举报"
+paths:
+  /v1/content/reports:
+    post:
+      access:
+      parameters:
+        - name: "reason"
+          type: "integer"
+          in: body
+          description: "举报原因: <br /> 0: 其他问题 <br /> 1: 垃圾广告 <br /> 2: 盗版侵权 <br /> 3: 侮辱辱骂 <br /> 4: 诱导或诈骗 <br /> 5: 时政信息 <br /> 6: 色情低俗 <br /> 7: 无意义水帖 <br /> 8: 违法犯罪 <br /> 9: 违规荐股"
+          required: true
+        - name: "content"
+          type: "string"
+          in: body
+          description: "填写的举报内容"
+          required: true
+        - name: "target_type"
+          type: "string"
+          in: body
+          description: "被举报内容的类型"
+          required: true
+        - name: "target_id"
+          type: "string"
+          in: body
+          description: "被举报内容的ID"
+          required: true
+        - name: "attachment_link"
+          type: "string"
+          in: body
+          description: "举报截图说明"
+          required: false
+      responses:
+        "200":
+          description: "举报成功"
+        "500":
+          description: "内部错误"
+      response_body: {
+          "code": 0,
+          "data": {
+            "ok": true
+          }
+        }

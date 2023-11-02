@@ -1,0 +1,53 @@
+swagger: "2.0"
+info:
+  description: "获取某人的关注列表"
+  version: "v1"
+  title: "获取某人的关注列表"
+paths:
+  /v1/content/profile/:id/follows:
+    post:
+      access:
+      parameters:
+        - name: "id"
+          type: "integer"
+          in: query
+          description: "Profile ID，例如 `123`"
+          required: true
+        - name: "kind"
+          type: "string"
+          description: "类型: 关注: following 粉丝: followers"
+          required: true
+        - name: "params"
+          type: "string"
+          description: "加载更多的参数"
+          required: false
+      responses:
+        "200":
+          description: "返回成功"
+          schema:
+            $ref: "#/definitions/profile_follows_resp"
+        "404":
+          description: "用户不存在"
+        "500":
+          description: "内部错误"
+      response_body:
+        {
+          "code": 0,
+          "data": { "profiles": [], "total": 100, "more_params": "abcdfdafdsafdsafrewvcxsvsd" },
+        }
+definitions:
+  profile_follows_resp:
+    required: ["opened", "ip_region", "profile"]
+    properties:
+      total:
+        type: int
+        description: "总人数"
+        required: true
+      more_params:
+        type: "string"
+        description: "加载更多的参数"
+      profiles:
+        type: object[]
+        properties:
+          $ref: "#/definitions/profile"
+          description: "个人信息"

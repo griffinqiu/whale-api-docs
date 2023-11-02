@@ -33,6 +33,6 @@ paths:
       response_body: {
           "code": 0,
           "data": {
-            "success": true
+            "ok": true
           }
         }
