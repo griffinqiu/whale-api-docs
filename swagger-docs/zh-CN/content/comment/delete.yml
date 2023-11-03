@@ -1,0 +1,16 @@
+swagger: "2.0"
+info:
+  description: "删除回复"
+  version: "v1"
+  title: "删除回复"
+paths:
+  /v1/content/comments/:id:
+    delete:
+      access:
+      responses:
+        "200":
+          description: "返回成功"
+        "500":
+          description: "内部错误"
+        "400":
+          description: "参数错误"

@@ -1,0 +1,280 @@
+swagger: "2.0"
+info:
+  description: "回复列表"
+  version: "v1"
+  title: "回复列表"
+paths:
+  /v1/content/comments:
+    get:
+      access:
+      parameters:
+        - name: "target_type"
+          type: "string"
+          description: "关联内容类型, 可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
+          required: true
+        - name: "target_id"
+          type: "integer"
+          description: "关联内容类型 id"
+          required: false
+        - name: "limit"
+          type: "integer"
+          description: "每页数量，最大 20"
+          required: false
+        - name: "tail_mark"
+          type: "integer"
+          description: "分页标识，回传上一次获取的值即可"
+          required: false
+      responses:
+        "200":
+          description: "返回成功"
+          schema:
+            $ref: "#/definitions/list_resp"
+        "500":
+          description: "内部错误"
+        "400":
+          description: "参数错误"
+
+definitions:
+  list_resp:
+    properties:
+      tail_mark:
+        type: "integer"
+        description: "分页标识"
+        required: true
+      comments:
+        type: "[Comment](#comment)[]"
+        description: "回复列表"
+  commentscopes:
+    type: "object"
+    required: ["liked", "author"]
+    properties:
+      liked:
+        type: boolean
+        description: "当前用户是否已经点赞"
+      author:
+        type: boolean
+        description: "当前用户是否是作者"
+
+  comment:
+    type: "object"
+    description: "回复列表"
+    properties:
+      id:
+        type: "integer"
+        description: "回复 id"
+        required: true
+      target_type:
+        type: "string"
+        description: "关联内容类型, 可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
+      target_id:
+        type: "integer"
+        description: "回复关联内容的 id"
+        required: true
+      body_html:
+        type: "string"
+        description: "回复的内容"
+        required: true
+      parent_id:
+        type: "integer"
+        description: "一级回复 id"
+        required: false
+      created_at:
+        type: "integer"
+        description: "创建时间戳，例如: `1698997445`"
+        required: true
+      topic_owner:
+        type: "bool"
+        description: "是否是楼主的回复"
+        required: true
+      reply_to_id:
+        type: "integer"
+        description: "被回复的回复 id"
+        required: false
+      status:
+        type: "integer"
+        description: "回复的状态, 0: 待审核，2: 已发布，3: 已屏蔽，4: 用户删除，5: 草稿"
+        required: false
+      likes_count:
+        type: "integer"
+        description: "点赞数"
+        required: true
+      comments_count:
+        type: "integer"
+        description: "回复数量"
+        required: true
+      stocks:
+        type: "object[]"
+        properties:
+          $ref: "#/definitions/stock"
+          description: "标的信息"
+        required: false
+      block_reason:
+        type: "string"
+        description: "被屏蔽的原因"
+        required: false
+      scopes:
+        type: "[commentScopes](#commentscopes)"
+        description: "当前用户和该文章的互动信息"
+      images:
+        type: "[image](#image)[]"
+        description: "回复图片信息"
+      containers:
+        type: "[container](#container)[]"
+        description: "话题信息"
+      reply_to:
+        type: "[Comment](#comment)"
+        description: "回复的回复信息，结构参考当前回复结构"
+      comments:
+        type: "[Comment](#comment)[]"
+        description: "子回复信息，结构参考当前回复结构"
+      user:
+        type: "[Profile](#profile)"
+        description: "用户信息"
+
+  profile:
+    type: "object"
+    properties:
+      id:
+        type: "int"
+        description: Profile Id
+        required: true
+      member_id:
+        type: "int"
+        description: 用户 Id
+        required: true
+      avatar:
+        type: "string"
+        description: "头像"
+        required: true
+      nickname:
+        type: "string"
+        description: "昵称"
+        required: true
+      status:
+        type: "int"
+        description: "状态"
+        required: true
+      description:
+        type: "string"
+        description: 个人简介
+        required: true
+      following_count:
+        type: "int"
+        description: 关注数量
+        required: true
+      followers_count:
+        type: "int"
+        description: 粉丝数量
+        required: true
+      activities_count:
+        type: "int"
+        description: 动态数量
+        required: true
+      bookmarks_count:
+        type: "int"
+        description: 收藏数量
+        required: true
+      cover:
+        type: "string"
+        description: 个人封面
+        required: true
+      scopes:
+        type: "object"
+        description: "与当前用户的可见范围"
+        required: true
+        properties:
+          followed:
+            type: "bool"
+            description: 当前用户关注了该用户
+          following:
+            type: "bool"
+            description: 该用户关注了当前用户
+          self:
+            type: "bool"
+            description: 当前用户就是该用户
+          blocked:
+            type: "bool"
+            description: 当前用户屏蔽了该用户
+          special_following:
+            type: "bool"
+            description: 当前用户特别关注了该用户
+
+  image:
+    type: "object"
+    required: ["kind", "url"]
+    properties:
+      kind:
+        type: "integer"
+        description: "类型，可选：<br/> `0` - 正常图片 <br/> `1` - 封面图 <br/> `2` - 视频封面图"
+      url:
+        type: "string"
+        description: "图片地址"
+      link:
+        type: "string"
+        description: "点击图片跳转链接"
+      image_style:
+        type: "[image_style](#image_style)"
+        description: "图片样式"
+      meta:
+        type: "[meta](#meta)"
+        description: "图片基本信息"
+
+  image_style:
+    type: "object"
+    required: ["s_128", "s_320", "s_1024", "original"]
+    properties:
+      s_128:
+        type: "string"
+        description: "128 尺寸图片地址"
+      s_320:
+        type: "string"
+        description: "320 尺寸图片地址"
+      s_1024:
+        type: "string"
+        description: "1024 尺寸图片地址"
+      original:
+        type: "string"
+        description: "原图地址"
+
+  meta:
+    type: "object"
+    properties:
+      width:
+        type: "string"
+        description: "图片宽"
+      height:
+        type: "string"
+        description: "图片高"
+      file_size:
+        type: "string"
+        description: "图片大小"
+
+  stock:
+    type: "object"
+    properties:
+      counter_id:
+        type: "string"
+        description: "标的编码"
+      name:
+        type: "string"
+        description: "标的名称"
+
+  container:
+    type: "object"
+    required: ["id", "title"]
+    properties:
+      id:
+        type: "integer"
+        description: "话题 ID"
+      title:
+        type: "string"
+        description: "话题名称"
+      description:
+        type: "string"
+        description: "话题描述"
+      icon:
+        type: "string"
+        description: 话题 icon 图片地址
+      cover:
+        type: "string"
+        description: "话题封面图片地址"

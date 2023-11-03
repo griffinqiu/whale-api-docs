@@ -41,4 +41,3 @@ definitions:
       is_star:
         type: "bool"
         description: "当前内容是否已收藏"
-      profile:

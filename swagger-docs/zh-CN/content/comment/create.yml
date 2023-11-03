@@ -1,0 +1,70 @@
+swagger: "2.0"
+info:
+  description: "创建回复"
+  version: "v1"
+  title: "创建回复"
+paths:
+  /v1/content/comments:
+    post:
+      access:
+      parameters:
+        - name: "target_type"
+          type: "string"
+          description: "关联内容类型, 可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
+          required: true
+        - name: "target_id"
+          type: "integer"
+          description: "关联内容类型 id"
+          required: true
+        - name: "body"
+          type: "string"
+          description: "回复内容"
+          required: true
+        - name: "attachment_ids"
+          type: "int[]"
+          description: "上传图片的 id, 再调用图片上传接口成功后，会返回图片的 id"
+          required: false
+        - name: "hash_tags"
+          type: "string[]"
+          description: "话题标签列表"
+          required: false
+        - name: "mention_member_ids"
+          type: "bool"
+          description: "评论提及人 member_id"
+          required: false
+        - name: "reply_to_id"
+          type: "integer"
+          description: "被回复的 comment id"
+          required: false
+        - name: "parent_id"
+          type: "integer"
+          description: "一级回复的 id"
+          required: false
+
+      responses:
+        "200":
+          description: "返回成功"
+          schema:
+            $ref: "#/definitions/create_resp"
+        "500":
+          description: "内部错误"
+        "400":
+          description: "参数错误"
+
+      request_body:
+        type: "json"
+        value:
+          {
+            "target_type": "Topic",
+            "target_id": 10449806,
+            "body": "<p>支持你的观点👍🏻</p>",
+          }
+      response_body: { "code": 0, "data": { "id": 1 } }
+
+definitions:
+  create_resp:
+    required: ["id"]
+    properties:
+      id:
+        type: "integer"
+        description: "创建成功的回复 id"
