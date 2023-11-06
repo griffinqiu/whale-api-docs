@@ -131,7 +131,7 @@ definitions:
     properties:
       articles:
         type: "article[]"
-        description: "[Article](/api/content/article/create_topic#article)"
+        description: "文章内容 - [Article](/api/content/article/create_topic#article)"
       more_params:
         type: "string"
         description: "加载更多参数，下次请求带到 params 参数传回来"

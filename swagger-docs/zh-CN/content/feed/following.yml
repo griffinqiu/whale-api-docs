@@ -1,0 +1,179 @@
+swagger: "2.0"
+info:
+  title: "关注 Feed"
+  description: "关注 Feed"
+  version: "v1"
+paths:
+  /v1/content/feed/following:
+    get:
+      parameters:
+        - name: "params"
+          type: "string"
+          in: query
+          description: "加载更多的参数"
+          required: false
+        - name: "limit"
+          type: "integer"
+          in: query
+          description: "最大返回条数 (默认 25)"
+          required: false
+
+      responses:
+        "200":
+          description: "返回成功"
+          schema:
+            $ref: "#/definitions/following_feed_resp"
+        "500":
+          description: "内部错误"
+        "400":
+          description: "参数错误"
+
+      request_body:
+        type: "string"
+        value: "/v1/content/feed/following?limit=25&params=eyJyZWZlcl9zdGF0dXMiOjF9"
+      response_body:
+        {
+          "code": 0,
+          "data":
+            {
+              "more_params": "eyJyZWZlcl9zdGF0dXMiOjF9",
+              "activities":
+                [
+                  {
+                    "id": 1,
+                    "action": "CreateTweet",
+                    "created_at": 1697193075,
+                    "actors":
+                      [
+                        {
+                          "id": 1,
+                          "member_id": 1,
+                          "avatar": "https://xxxx.png",
+                          "nickname": "nickname",
+                          "description": "description",
+                          "following_count": 10,
+                          "followers_count": 10,
+                          "activities_count": 10,
+                          "bookdmarks_count": 11,
+                          "cover": "https://xxx.png",
+                          "scopes":
+                            {
+                              "followed": true,
+                              "following": true,
+                              "self": false,
+                              "blocked": false,
+                              "special_following": false,
+                            },
+                        },
+                      ],
+                    "article":
+                      {
+                        "id": 1,
+                        "kind": 1,
+                        "type": 2,
+                        "published_at": 1697193075,
+                        "title": "标题",
+                        "description": "<p>摘要</p>",
+                        "body": "<p>正文</p>",
+                        "choice": true,
+                        "important": false,
+                        "pin": false,
+                        "comments_count": 1,
+                        "likes_count": 2,
+                        "bookmarks_count": 3,
+                        "counter_ids": ["BABA.US", "700.HK"],
+                        "scopes":
+                          {
+                            "liked": true,
+                            "bookmarked": false,
+                            "author": false,
+                          },
+                        "last_edited_at": 1697193075,
+                        "choice_title": "精选",
+                        "images":
+                          [
+                            {
+                              "kind": 0,
+                              "url": "https://xxx.png",
+                              "link": "",
+                              "image_style":
+                                {
+                                  "s_128": "https://xxx.png?size=128",
+                                  "s_320": "https://xxx.png?size=256",
+                                  "s_1024": "https://xxx.png?size=512",
+                                  "original": "https://xxx.png",
+                                },
+                              "meta":
+                                {
+                                  "width": "128",
+                                  "height": "128",
+                                  "file_size": "1280",
+                                },
+                            },
+                          ],
+                        "containers":
+                          [
+                            {
+                              "id": 1,
+                              "title": "话题",
+                              "description": "话题描述",
+                              "icon": "https://xxx.png",
+                              "cover": "https://xxx.png",
+                            },
+                          ],
+                        "author":
+                          {
+                            "id": 1,
+                            "member_id": 1,
+                            "avatar": "https://xxxx.png",
+                            "nickname": "nickname",
+                            "description": "description",
+                            "following_count": 10,
+                            "followers_count": 10,
+                            "activities_count": 10,
+                            "bookdmarks_count": 11,
+                            "cover": "https://xxx.png",
+                            "scopes":
+                              {
+                                "followed": true,
+                                "following": true,
+                                "self": false,
+                                "blocked": false,
+                                "special_following": false,
+                              },
+                          },
+                      },
+                  },
+                ],
+            },
+        }
+
+definitions:
+  following_feed_resp:
+    required: ["activities", "more_params"]
+    properties:
+      activities:
+        type: "activity[]"
+
+  activity:
+    type: "object"
+    required: ["id", "action", "created_at", "actors", "article", "more_params"]
+    properties:
+      id:
+        type: "integer"
+        description: "动态 ID"
+      action:
+        type: "string"
+        description: "Feed 类型：<br/> `CreateTweet` - 发布短文 <br/> `CreatePost` - 发布长文"
+      created_at:
+        type: "integer"
+        description: "动态发布时间戳"
+      actors:
+        type: "profile[]"
+        description: "动态发布者信息 - [Profile](/api/content/profile/get_profile#schemaprofile)"
+      article:
+        type: "article"
+        description: "发布的内容详情 - [Article](/api/content/article/create_topic#article)"
+      more_params:
+        type: "string"
+        description: "加载更多参数，下次请求带到 params 参数传回来"

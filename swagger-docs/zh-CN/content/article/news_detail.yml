@@ -95,4 +95,4 @@ definitions:
     properties:
       article:
         type: "object"
-        description: "[Article](/api/content/article/create_topic#article)"
+        description: "新闻详情 - [Article](/api/content/article/create_topic#article)"
