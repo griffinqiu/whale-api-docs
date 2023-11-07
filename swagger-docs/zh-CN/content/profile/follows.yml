@@ -15,7 +15,7 @@ paths:
           required: true
         - name: "kind"
           type: "string"
-          description: "类型: 关注: following 粉丝: followers"
+          description: "类型：关注：following 粉丝：followers"
           required: true
         - name: "params"
           type: "string"

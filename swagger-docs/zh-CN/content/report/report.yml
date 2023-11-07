@@ -11,7 +11,7 @@ paths:
         - name: "reason"
           type: "integer"
           in: body
-          description: "举报原因: <br /> 0: 其他问题 <br /> 1: 垃圾广告 <br /> 2: 盗版侵权 <br /> 3: 侮辱辱骂 <br /> 4: 诱导或诈骗 <br /> 5: 时政信息 <br /> 6: 色情低俗 <br /> 7: 无意义水帖 <br /> 8: 违法犯罪 <br /> 9: 违规荐股"
+          description: "举报原因：<br /> 0: 其他问题 <br /> 1: 垃圾广告 <br /> 2: 盗版侵权 <br /> 3: 侮辱辱骂 <br /> 4: 诱导或诈骗 <br /> 5: 时政信息 <br /> 6: 色情低俗 <br /> 7: 无意义水帖 <br /> 8: 违法犯罪 <br /> 9: 违规荐股"
           required: true
         - name: "content"
           type: "string"
@@ -26,7 +26,7 @@ paths:
         - name: "target_id"
           type: "string"
           in: body
-          description: "被举报内容的ID"
+          description: "被举报内容的 ID"
           required: true
         - name: "attachment_link"
           type: "string"

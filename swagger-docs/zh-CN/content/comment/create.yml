@@ -10,7 +10,7 @@ paths:
       parameters:
         - name: "target_type"
           type: "string"
-          description: "关联内容类型, 可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
+          description: "关联内容类型，可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
           required: true
         - name: "target_id"
           type: "integer"

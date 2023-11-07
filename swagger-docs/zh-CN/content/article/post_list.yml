@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   title: "资讯列表"
-  description: "资讯列表"
+  description: "资讯列表：个股资讯、自选动态、要闻、7*24 快讯、新股、机构"
   version: "v1"
 paths:
   /v1/content/post/articles:
@@ -21,7 +21,7 @@ paths:
           required: false
         - name: "counter_ids"
           type: "string[]"
-          description: "股票列表(个股资讯和自选动态必传)"
+          description: "股票列表 (个股资讯和自选动态必传)"
           required: false
         - name: "has_derivatives"
           type: "bool"

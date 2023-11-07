@@ -10,7 +10,7 @@ paths:
       parameters:
         - name: "target_type"
           type: "string"
-          description: "关联内容类型, 可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
+          description: "关联内容类型，可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
           required: true
         - name: "target_id"
           type: "integer"
@@ -65,7 +65,7 @@ definitions:
         required: true
       target_type:
         type: "string"
-        description: "关联内容类型, 可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
+        description: "关联内容类型，可选：Topic(讨论)、Comment(评论)、Post(资讯)，例如 `Post`"
       target_id:
         type: "integer"
         description: "回复关联内容的 id"
@@ -80,7 +80,7 @@ definitions:
         required: false
       created_at:
         type: "integer"
-        description: "创建时间戳，例如: `1698997445`"
+        description: "创建时间戳，例如：`1698997445`"
         required: true
       topic_owner:
         type: "bool"
@@ -92,7 +92,7 @@ definitions:
         required: false
       status:
         type: "integer"
-        description: "回复的状态, 0: 待审核，2: 已发布，3: 已屏蔽，4: 用户删除，5: 草稿"
+        description: "回复的状态，0: 待审核，2: 已发布，3: 已屏蔽，4: 用户删除，5: 草稿"
         required: false
       likes_count:
         type: "integer"
