@@ -200,7 +200,7 @@ definitions:
     properties:
       type:
         type: "string"
-        description: ""
+        description: "类型"
       title:
         type: "string"
         description: "标题"
