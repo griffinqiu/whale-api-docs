@@ -1,0 +1,215 @@
+swagger: "2.0"
+info:
+  title: "资讯列表"
+  description: "资讯列表"
+  version: "v1"
+paths:
+  /v1/content/post/articles:
+    post:
+      parameters:
+        - name: "slug"
+          type: "string"
+          description: "资讯列表分类 key，可选：<br/> `stock_news` - (个股资讯/自选动态) <br/> `important_news` - (要闻) <br/> `stock_flash` - (7*24 快讯) <br/> `ipo_news` - (新股) <br/> `stock_opinion` - (机构)"
+          required: true
+        - name: "params"
+          type: "string"
+          description: "加载更多的参数"
+          required: false
+        - name: "limit"
+          type: "integer"
+          description: "最大返回条数 (默认 25)"
+          required: false
+        - name: "counter_ids"
+          type: "string[]"
+          description: "股票列表(个股资讯和自选动态必传)"
+          required: false
+        - name: "has_derivatives"
+          type: "bool"
+          description: "是否包含衍生品"
+          required: false
+        - name: "important_only"
+          type: "bool"
+          description: "是否只展示重要内容"
+          required: false
+        - name: "market"
+          type: "string"
+          description: "市场，HK、US、CN、SG"
+          required: false
+        - name: "days"
+          type: "integer"
+          description: "快讯 slug 一周快讯"
+          required: false
+        - name: "filter_pins"
+          type: "bool"
+          description: "动态过滤置顶"
+          required: false
+
+      responses:
+        "200":
+          description: "返回成功"
+          schema:
+            $ref: "#/definitions/post_articles_resp"
+        "500":
+          description: "内部错误"
+        "400":
+          description: "参数错误"
+      request_body:
+        type: "json"
+        value:
+          {
+            "slug": "stock_flash",
+            "limit": 1,
+            "params": "eyJyZWZlc39zdGF0dXMiOjF9",
+            "has_derivatives": true,
+            "market": "All",
+          }
+      response_body:
+        {
+          "code": 0,
+          "data":
+            {
+              "articles":
+                [
+                  {
+                    "id": "101834805",
+                    "type": 1,
+                    "kind": 2,
+                    "title": "小红书：双十一商家参与数与用户购买数同比近 4 倍",
+                    "description_html": "<p>小红书公布双十一期间平台电商新变化。交流会上发布的数据显示，截至 11 月 3 日，参与小红书电商双十一的商家数量是去年的 3.7 倍，日均购买用户数是去年的 3.8 倍。</p>",
+                    "images": [],
+                    "counter_ids": [],
+                    "published_at": "1699337841",
+                    "choice": false,
+                    "heat": 0,
+                    "important": false,
+                    "pin": false,
+                    "comments_count": 0,
+                    "likes_count": 0,
+                    "shares_count": 0,
+                    "detail_url": "https://m.lbkrs.com/news/post/101834805",
+                    "status": 2,
+                    "locale_option":
+                      {
+                        "original": "zh-CN",
+                        "current": "zh-CN",
+                        "availables": [],
+                      },
+                    "derivatives":
+                      { "stocks": [], "funds": [], "time_interval": "" },
+                    "trends": [],
+                    "comments": [],
+                    "author": null,
+                    "scopes":
+                      {
+                        "liked": false,
+                        "bookmarked": false,
+                        "author": false,
+                        "paid": false,
+                      },
+                    "post_source":
+                      {
+                        "key": 5198,
+                        "name": "36Kr",
+                        "logo": "https://pub.lbkrs.com/files/202111/Dfnkd4Z6aKBhb4Qk/default_source.png?x-oss-process=style/128",
+                      },
+                    "attitude": 0,
+                    "cover_info":
+                      {
+                        "url": "",
+                        "meta":
+                          {
+                            "width": "",
+                            "height": "",
+                            "file_size": "",
+                            "name": "",
+                            "name_en": "",
+                            "name_hk": "",
+                            "url": "",
+                            "web_url": "",
+                          },
+                        "link": "",
+                        "kind": 0,
+                        "image_style": null,
+                      },
+                    "offline_url": "https://m.lbkrs.com/offline/news/post/index.html",
+                    "license": 0,
+                    "block_reason": "",
+                    "markets": [],
+                    "cover": "https://pub.lbkrs.com/files/202108/6WvdkuYGB6FnqTum/7x24_3x.png?x-oss-process=style/480",
+                    "extract_summary": true,
+                    "read_mode": false,
+                    "source_url": "https://36kr.com/newsflashes/2507830741876736",
+                    "content_via": 0,
+                    "editor_level": 0,
+                    "bookmarkes_count": 0,
+                    "regions": ["CN", "HK", "EN"],
+                    "show_chatgpt_summary": false,
+                    "language": "zh-CN",
+                    "web_url": "https://longportapp.com/news/101834805",
+                    "last_edited_at": "0",
+                    "body": "",
+                    "topic_type": 0,
+                    "media_kind": 0,
+                    "media_payload": "",
+                    "link_info": null,
+                    "target": null,
+                    "parent": null,
+                    "votes": [],
+                    "payment": null,
+                    "subject": null,
+                    "parent_subject": null,
+                    "target_link_info": "",
+                    "collections": [],
+                    "containers": [],
+                    "stocks": [],
+                    "spam_images": [],
+                    "like_users": [],
+                    "title_locale": null,
+                    "desc_locale": null,
+                    "target_type_mark": "",
+                    "attachments": [],
+                    "choice_title": "",
+                    "cur_member_id": "0",
+                    "channel_ids": ["37", "237", "236", "305141"],
+                  },
+                ],
+              "more_params": "eyJyZWZlcl9zdGF0dXMiOjF9",
+              "featured": [],
+              "topped": [],
+            },
+        }
+
+definitions:
+  post_articles_resp:
+    required: ["articles", "more_params"]
+    properties:
+      articles:
+        type: "[Article](/api/content/article/create_topic#article)[]"
+        description: "资讯列表"
+      more_params:
+        type: "string"
+        description: "加载更多参数，下次请求带到 params 参数传回来"
+      featured:
+        type: "[Featured](#featured)"
+        description: "推荐资讯"
+      topped:
+        type: "[Featured](#featured)"
+        description: "置顶资讯"
+
+  featured:
+    properties:
+      type:
+        type: "string"
+        description: ""
+      title:
+        type: "string"
+        description: "标题"
+      position:
+        type: "string"
+        description: "位置"
+      navigate_url:
+        type: "string"
+        description: "跳转地址"
+      targets:
+        type: "object"
+        description: "相关参数"
